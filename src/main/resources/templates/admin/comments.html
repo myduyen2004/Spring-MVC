@@ -17,25 +17,25 @@
                 <th>Actions</th>
             </tr>
             </thead>
-            <tbody>
-            <tr th:if="${comments.empty}">
-                <td colspan="7">No comments available</td>
-            </tr>
-            <tr th:each="comment : ${comments}">
-                <td th:text="${comment.author}">Author</td>
-                <td th:text="${comment.email}">Email</td>
-                <td th:text="${#strings.abbreviate(comment.content, 50)}">Comment</td>
-                <td><a th:href="@{/post/{id}(id=${comment.post.id})}" th:text="${comment.post.title}">Post</a></td>
-                <td th:text="${#dates.format(comment.createDate, 'dd MMM, yyyy')}">Date</td>
-                <td th:text="${comment.status == 1 ? 'Pending' : 'Approved'}">Status</td>
-                <td class="action-buttons">
-                    <a th:if="${comment.status == 1}" th:href="@{/admin/comment/approve/{id}(id=${comment.id})}" title="Approve">Approve</a>
-                    <a th:href="@{/admin/comment/delete/{id}(id=${comment.id})}"
-                       onclick="return confirm('Are you sure you want to delete this comment?')"
-                       title="Delete">Delete</a>
-                </td>
-            </tr>
-            </tbody>
+<!--            <tbody>-->
+<!--            <tr th:if="${comments.empty}">-->
+<!--                <td colspan="7">No comments available</td>-->
+<!--            </tr>-->
+<!--            <tr th:each="comment : ${comments}">-->
+<!--                <td th:text="${comment.author}">Author</td>-->
+<!--                <td th:text="${comment.email}">Email</td>-->
+<!--                <td th:text="${#strings.abbreviate(comment.content, 50)}">Comment</td>-->
+<!--                <td><a th:href="@{/post/{id}(id=${comment.post.id})}" th:text="${comment.post.title}">Post</a></td>-->
+<!--                <td th:text="${#dates.format(comment.createDate, 'dd MMM, yyyy')}">Date</td>-->
+<!--                <td th:text="${comment.status == 1 ? 'Pending' : 'Approved'}">Status</td>-->
+<!--                <td class="action-buttons">-->
+<!--                    <a th:if="${comment.status == 1}" th:href="@{/admin/comment/approve/{id}(id=${comment.id})}" title="Approve">Approve</a>-->
+<!--                    <a th:href="@{/admin/comment/delete/{id}(id=${comment.id})}"-->
+<!--                       onclick="return confirm('Are you sure you want to delete this comment?')"-->
+<!--                       title="Delete">Delete</a>-->
+<!--                </td>-->
+<!--            </tr>-->
+<!--            </tbody>-->
         </table>
     </div>
 </div>

@@ -1,10 +1,11 @@
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
 <div th:fragment="content">
     <div class="content">
         <h1>Latest Posts</h1>
 
-        <div th:if="${posts.empty}">
+        <div th:if="${#lists.isEmpty(posts)}">
             <p>No posts available.</p>
         </div>
 
@@ -34,10 +35,10 @@
         <!-- Tag Cloud -->
         <div class="tag-cloud">
             <h3>Tags</h3>
-            <div th:if="${tags.empty}">
+            <div th:if="${#lists.isEmpty(tags)}">
                 <p>No tags available.</p>
             </div>
-            <div th:unless="${tags.empty}">
+            <div th:unless="${#lists.isEmpty(tags)}">
                 <a th:each="tag : ${tags}" th:href="@{/tag/{name}(name=${tag.name})}"
                    th:class="'tag tag-' + ${tag.frequency > 10 ? 5 : (tag.frequency > 7 ? 4 : (tag.frequency > 5 ? 3 : (tag.frequency > 2 ? 2 : 1)))}"
                    th:text="${tag.name}">Tag</a>
@@ -47,7 +48,7 @@
         <!-- Recent Comments -->
         <div class="recent-comments">
             <h3>Recent Comments</h3>
-            <div th:if="${recentComments.empty}">
+            <div th:if="${#lists.isEmpty(recentComments)}">
                 <p>No comments available.</p>
             </div>
             <div th:each="comment : ${recentComments}" class="comment">
