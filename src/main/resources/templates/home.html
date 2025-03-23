@@ -1,0 +1,64 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="content">
+    <div class="content">
+        <h1>Latest Posts</h1>
+
+        <div th:if="${posts.empty}">
+            <p>No posts available.</p>
+        </div>
+
+        <div th:each="post : ${posts}" class="post">
+            <h2><a th:href="@{/post/{id}(id=${post.id})}" th:text="${post.title}">Post Title</a></h2>
+            <div class="post-meta">
+                Posted on <span th:text="${#dates.format(post.createDate, 'dd MMM, yyyy')}">01 Jan, 2025</span>
+            </div>
+            <div class="post-content">
+                <p th:text="${#strings.abbreviate(post.content, 300)}">Post content...</p>
+            </div>
+            <a th:href="@{/post/{id}(id=${post.id})}" class="read-more">Read More</a>
+        </div>
+
+        <!-- Pagination -->
+        <div th:if="${totalPages > 1}" class="pagination">
+            <a th:if="${currentPage > 0}" th:href="@{/(page=${currentPage - 1})}">&laquo; Previous</a>
+            <span th:each="i : ${#numbers.sequence(0, totalPages - 1)}">
+                    <a th:if="${i != currentPage}" th:href="@{/(page=${i})}" th:text="${i + 1}">1</a>
+                    <span th:if="${i == currentPage}" th:text="${i + 1}" class="current-page">1</span>
+                </span>
+            <a th:if="${currentPage < totalPages - 1}" th:href="@{/(page=${currentPage + 1})}">Next &raquo;</a>
+        </div>
+    </div>
+
+    <div class="sidebar">
+        <!-- Tag Cloud -->
+        <div class="tag-cloud">
+            <h3>Tags</h3>
+            <div th:if="${tags.empty}">
+                <p>No tags available.</p>
+            </div>
+            <div th:unless="${tags.empty}">
+                <a th:each="tag : ${tags}" th:href="@{/tag/{name}(name=${tag.name})}"
+                   th:class="'tag tag-' + ${tag.frequency > 10 ? 5 : (tag.frequency > 7 ? 4 : (tag.frequency > 5 ? 3 : (tag.frequency > 2 ? 2 : 1)))}"
+                   th:text="${tag.name}">Tag</a>
+            </div>
+        </div>
+
+        <!-- Recent Comments -->
+        <div class="recent-comments">
+            <h3>Recent Comments</h3>
+            <div th:if="${recentComments.empty}">
+                <p>No comments available.</p>
+            </div>
+            <div th:each="comment : ${recentComments}" class="comment">
+                <div class="comment-meta">
+                    <strong th:text="${comment.author}">Author</strong> on
+                    <a th:href="@{/post/{id}(id=${comment.post.id})}" th:text="${comment.post.title}">Post Title</a>
+                </div>
+                <p th:text="${#strings.abbreviate(comment.content, 100)}">Comment content...</p>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

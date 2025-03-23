@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="content">
+    <div class="content">
+        <div class="post">
+            <h1 th:text="${post.title}">Post Title</h1>
+            <div class="post-meta">
+                Posted on <span th:text="${#dates.format(post.createDate, 'dd MMM, yyyy')}">01 Jan, 2025</span>
+                <span th:if="${!#strings.isEmpty(post.tags)}">
+                        | Tags:
+                        <span th:each="tag, iterStat : ${#strings.arraySplit(post.tags, ',')}">
+                            <a th:href="@{/tag/{name}(name=${#strings.trim(tag)})}" th:text="${#strings.trim(tag)}">Tag</a><span th:if="${!iterStat.last}">, </span>
+                        </span>
+                    </span>
+            </div>
+            <div class="post-content">
+                <p th:text="${post.content}">Post content...</p>
+            </div>
+        </div>
+
+        <!-- Comments Section -->
+        <div class="comments-section">
+            <h2>Comments</h2>
+
+            <div th:if="${comments.empty}">
+                <p>No comments yet. Be the first to comment!</p>
+            </div>
+
+            <div th:each="comment : ${comments}" class="comment">
+                <div class="comment-meta">
+                    <strong th:text="${comment.author}">Author</strong>
+                    <span th:if="${!#strings.isEmpty(comment.url)}">
+                            (<a th:href="${comment.url}" target="_blank">Website</a>)
+                        </span>
+                    on <span th:text="${#dates.format(comment.createDate, 'dd MMM, yyyy')}">01 Jan, 2025</span>
+                </div>
+                <p th:text="${comment.content}">Comment content...</p>
+            </div>
+
+            <!-- Comment Form -->
+            <div class="comment-form">
+                <h3>Leave a Comment</h3>
+                <form th:action="@{/post/{id}/comment(id=${post.id})}" method="post" th:object="${newComment}">
+                    <div class="form-group">
+                        <label for="author">Name *</label>
+                        <input type="text" id="author" th:field="*{author}" class="form-control" required placeholder="Your name">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email *</label>
+                        <input type="email" id="email" th:field="*{email}" class="form-control" required placeholder="Your email (will not be published)">
+                    </div>
+                    <div class="form-group">
+                        <label for="url">Website</label>
+                        <input type="url" id="url" th:field="*{url}" class="form-control" placeholder="Your website (optional)">
+                    </div>
+                    <div class="form-group">
+                        <label for="content">Comment *</label>
+                        <textarea id="content" th:field="*{content}" class="form-control" required placeholder="Your comment"></textarea>
+                    </div>
+                    <button type="submit" class="btn">Submit Comment</button>
+                    <p class="note">* Comments will be moderated before appearing on the site.</p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar">
+        <!-- Related Posts based on tags could go here -->
+    </div>
+</div>
+</body>
+</html>
