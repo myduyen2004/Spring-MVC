@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<nav th:fragment="taskbar" class="p-3 border rounded bg-light">
+    <div th:if="${session.user}">
+        <div class="card p-3">
+            <h5>demo</h5>
+            <a th:href="@{/admin/post/create}">Create New Post</a><br>
+            <a th:href="@{/admin/posts}">Manage Posts</a><br>
+            <a th:href="@{/admin/comments}">Approve Comments (0)</a><br>
+            <a th:href="@{/logout}">Logout</a>
+        </div>
+    </div>
+    <h3 class="text-primary">Tags</h3>
+    <ul class="list-unstyled">
+        <div th:each="tag : ${tags}">
+            <a th:href="@{/tag/{tag}(tag=${tag.name})}" th:text="${tag.name}"></a>
+        </div>
+    </ul>
+    <h3 class="text-primary">Recent Comments</h3>
+    <div th:each="comment : ${comments}">
+        <p th:text="${comment.content}">on...</p>
+<!--        <a th:href="@{/post/{id}(id=${comment.post_id})}"></a>-->
+    </div>
+</nav>

@@ -44,6 +44,8 @@ public class HomeController {
         List<Tag> tags = tagService.findAllOrderByFrequency();
         model.addAttribute("tags", tags);
 
+        Page<Comment> comments = commentService.findRecentApprovedComments(3);
+        model.addAttribute("comments", comments.getContent());
         return "home";
     }
 

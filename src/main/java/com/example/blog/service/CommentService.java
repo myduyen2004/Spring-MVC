@@ -29,7 +29,9 @@ public class CommentService {
         Pageable pageable = PageRequest.of(0, count);
         return commentRepository.findByStatusOrderByCreateDateDesc(2, pageable); // 2 = Approved
     }
-
+    public List<Comment> findComments(){
+        return commentRepository.findAll();
+    }
     public Comment save(Comment comment) {
         return commentRepository.save(comment);
     }

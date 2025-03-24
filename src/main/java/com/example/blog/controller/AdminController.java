@@ -1,12 +1,10 @@
 package com.example.blog.controller;
 
-import com.example.blog.model.Comment;
-import com.example.blog.model.Lookup;
-import com.example.blog.model.Post;
-import com.example.blog.model.User;
+import com.example.blog.model.*;
 import com.example.blog.service.CommentService;
 import com.example.blog.service.LookupService;
 import com.example.blog.service.PostService;
+import com.example.blog.service.TagService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,7 +26,10 @@ public class AdminController {
     @Autowired
     private LookupService lookupService;
 
-    // Interceptor method to check if user is logged in
+    @Autowired
+    private TagService tagService;
+
+//     Interceptor method to check if user is logged in
     @ModelAttribute
     public void checkAuth(HttpSession session, Model model) {
         User user = (User) session.getAttribute("user");
@@ -47,6 +48,8 @@ public class AdminController {
         // Add status lookups
         List<Lookup> statuses = lookupService.findByType("PostStatus");
         model.addAttribute("statuses", statuses);
+        List<Tag> tags = tagService.findAllOrderByFrequency();
+        model.addAttribute("tags", tags);
 
         return "admin/posts";
     }
@@ -58,6 +61,8 @@ public class AdminController {
         // Add status lookups
         List<Lookup> statuses = lookupService.findByType("PostStatus");
         model.addAttribute("statuses", statuses);
+        List<Tag> tags = tagService.findAllOrderByFrequency();
+        model.addAttribute("tags", tags);
 
         return "admin/createPost";
     }
@@ -122,7 +127,7 @@ public class AdminController {
 
     @GetMapping("/comments")
     public String manageComments(Model model) {
-        List<Comment> comments = commentService.findRecentApprovedComments(20).getContent();
+        List<Comment> comments = commentService.findComments();
         model.addAttribute("comments", comments);
         return "admin/comments";
     }
