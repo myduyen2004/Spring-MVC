@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Job Registration System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .jumbotron {
+            padding: 4rem 2rem;
+            margin-bottom: 2rem;
+            background-color: #e9ecef;
+            border-radius: .3rem;
+        }
+    </style>
+</head>
+<body>
+<div class="container mt-4">
+    <div class="jumbotron">
+        <h1 class="display-4">Job Registration System</h1>
+        <p class="lead">A system for managing part-time job registrations for employees</p>
+        <hr class="my-4">
+        <p>Choose an option to proceed:</p>
+        <a th:href="@{/registration/create}" class="btn btn-primary btn-lg">Register New Job</a>
+        <a th:href="@{/registration/list}" class="btn btn-secondary btn-lg">View Registrations</a>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+com\jobregistration\model\JobRegistration.class
+com\jobregistration\service\EmployeeService.class
+com\jobregistration\repository\JobRepository.class
+com\jobregistration\service\JobService.class
+com\jobregistration\ParttimejobApplication.class
+com\jobregistration\controller\CustomErrorController.class
+com\jobregistration\ServletInitializer.class
+com\jobregistration\service\JobRegistrationService.class
+com\jobregistration\model\Employee.class
+com\jobregistration\controller\JobRegistrationController.class
+com\jobregistration\model\Job.class
+com\jobregistration\repository\JobRegistrationRepository.class
+com\jobregistration\repository\EmployeeRepository.class
